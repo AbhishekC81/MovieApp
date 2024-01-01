@@ -2,7 +2,6 @@
 
 package com.example.movieapp.screens.home
 
-import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
@@ -42,7 +41,7 @@ fun HomeScreen(paddingValues: PaddingValues, navController: NavController) {
             )
         }
     ) {
-        MainContent(paddingValues = it,navController = navController)
+        MainContent(paddingValues = it, navController = navController)
     }
 }
 
@@ -51,21 +50,21 @@ fun MainContent(
     paddingValues: PaddingValues,
     navController: NavController,
     movieList: List<Movie> = getMovies()
-    ) {
+) {
     Column(
         modifier = Modifier
             .padding(
-                start=12.dp,
-                top= paddingValues.calculateTopPadding()+12.dp,
-                bottom=12.dp,
-                end=12.dp
+                start = 12.dp,
+                top = paddingValues.calculateTopPadding() + 12.dp,
+                bottom = 12.dp,
+                end = 12.dp
             )
     ) {
         LazyColumn(content = {
             items(items = movieList) {
                 MovieRow(movie = it) { movie ->
                     //Log.d("Tag","MainContent: $movie")
-                    navController.navigate(route = MovieScreens.DetailsScreen.name+"/$movie")
+                    navController.navigate(route = MovieScreens.DetailsScreen.name + "/$movie")
                 }
             }
         })

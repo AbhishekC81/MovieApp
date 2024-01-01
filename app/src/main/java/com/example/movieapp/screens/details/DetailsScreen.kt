@@ -6,20 +6,15 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
@@ -43,29 +38,27 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
 import com.example.movieapp.model.Movie
 import com.example.movieapp.model.getMovies
-import com.example.movieapp.widgets.MovieRow
-
 
 
 @ExperimentalMaterial3Api
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetailsScreen(navController: NavController,
-                  movieId: String?
+fun DetailsScreen(
+    navController: NavController,
+    movieId: String?
 ) {
-    
-    val newMovieList = getMovies().filter {movie -> 
+
+    val newMovieList = getMovies().filter { movie ->
         movie.id == movieId
     }
 
-    val mov= newMovieList.first()
+    val mov = newMovieList.first()
 
     Scaffold(
         topBar = {
@@ -78,14 +71,15 @@ fun DetailsScreen(navController: NavController,
                 },
                 modifier = Modifier.shadow(elevation = 5.dp),
                 navigationIcon = {
-                                 IconButton(onClick = {
-                                     navController.popBackStack()
-                                 }) {
-                                     Icon(imageVector = Icons.Default.ArrowBack,
-                                         contentDescription = "Arrow Back",
-                                         tint = MaterialTheme.colorScheme.onPrimary
-                                     )
-                                 }
+                    IconButton(onClick = {
+                        navController.popBackStack()
+                    }) {
+                        Icon(
+                            imageVector = Icons.Default.ArrowBack,
+                            contentDescription = "Arrow Back",
+                            tint = MaterialTheme.colorScheme.onPrimary
+                        )
+                    }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Magenta)
             )
@@ -120,9 +114,11 @@ fun DetailsScreen(navController: NavController,
                     border = BorderStroke(1.dp, Color.DarkGray),
                     shape = RectangleShape
                 ) {
-                    Image(painter = rememberImagePainter(data = mov.images[0]),
+                    Image(
+                        painter = rememberImagePainter(data = mov.images[0]),
                         contentDescription = "Movie Poster",
-                        modifier = Modifier.fillMaxWidth())
+                        modifier = Modifier.fillMaxWidth()
+                    )
                 }
                 Divider(modifier = Modifier.padding(3.dp))
 
@@ -132,8 +128,10 @@ fun DetailsScreen(navController: NavController,
                     elevation = CardDefaults.cardElevation(10.dp),
                     shape = RectangleShape
                 ) {
-                    Column(modifier = Modifier.padding(3.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally) {
+                    Column(
+                        modifier = Modifier.padding(3.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
                         Text(
                             text = mov.title,
                             fontWeight = FontWeight.Bold,
@@ -150,7 +148,10 @@ fun DetailsScreen(navController: NavController,
                     elevation = CardDefaults.cardElevation(10.dp),
                     border = BorderStroke(1.dp, Color.DarkGray),
                 ) {
-                    Column(modifier = Modifier.padding(5.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                    Column(
+                        modifier = Modifier.padding(5.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
                         Text(
                             text = "Plot: ",
                             fontWeight = FontWeight.SemiBold,
@@ -175,105 +176,110 @@ fun DetailsScreen(navController: NavController,
                     border = BorderStroke(1.dp, Color.DarkGray)
                 ) {
                     Column(modifier = Modifier.padding(5.dp)) {
-                        Text(buildAnnotatedString {
-                            withStyle(
-                                style = SpanStyle(
-                                    fontSize = 6.sp,
-                                    fontWeight = FontWeight.ExtraBold,
-                                    color = Color.Black
-                                )
-                            ) {
-                                append("Director: ")
-                            }
-                            withStyle(
-                                style = SpanStyle(
-                                    fontSize = 6.sp,
-                                    fontWeight = FontWeight.Normal,
-                                )
-                            ) {
-                                append(mov.director)
-                            }
-                        }, modifier = Modifier.padding(2.dp)
+                        Text(
+                            buildAnnotatedString {
+                                withStyle(
+                                    style = SpanStyle(
+                                        fontSize = 6.sp,
+                                        fontWeight = FontWeight.ExtraBold,
+                                        color = Color.Black
+                                    )
+                                ) {
+                                    append("Director: ")
+                                }
+                                withStyle(
+                                    style = SpanStyle(
+                                        fontSize = 6.sp,
+                                        fontWeight = FontWeight.Normal,
+                                    )
+                                ) {
+                                    append(mov.director)
+                                }
+                            }, modifier = Modifier.padding(2.dp)
                         )
-                        Text(buildAnnotatedString {
-                            withStyle(
-                                style = SpanStyle(
-                                    fontSize = 6.sp,
-                                    fontWeight = FontWeight.ExtraBold,
-                                    color = Color.Black
-                                )
-                            ) {
-                                append("Released: ")
-                            }
-                            withStyle(
-                                style = SpanStyle(
-                                    fontSize = 6.sp,
-                                    fontWeight = FontWeight.Normal
-                                )
-                            ) {
-                                append(mov.year)
-                            }
-                        }, modifier = Modifier.padding(2.dp)
+                        Text(
+                            buildAnnotatedString {
+                                withStyle(
+                                    style = SpanStyle(
+                                        fontSize = 6.sp,
+                                        fontWeight = FontWeight.ExtraBold,
+                                        color = Color.Black
+                                    )
+                                ) {
+                                    append("Released: ")
+                                }
+                                withStyle(
+                                    style = SpanStyle(
+                                        fontSize = 6.sp,
+                                        fontWeight = FontWeight.Normal
+                                    )
+                                ) {
+                                    append(mov.year)
+                                }
+                            }, modifier = Modifier.padding(2.dp)
                         )
-                        Text(buildAnnotatedString {
-                            withStyle(
-                                style = SpanStyle(
-                                    fontSize = 6.sp,
-                                    fontWeight = FontWeight.ExtraBold,
-                                    color = Color.Black
-                                )
-                            ) {
-                                append("Genre: ")
-                            }
-                            withStyle(
-                                style = SpanStyle(
-                                    fontSize = 6.sp,
-                                    fontWeight = FontWeight.Normal
-                                )
-                            ) {
-                                append(mov.genre)
-                            }
-                        }, modifier = Modifier.padding(2.dp)
+                        Text(
+                            buildAnnotatedString {
+                                withStyle(
+                                    style = SpanStyle(
+                                        fontSize = 6.sp,
+                                        fontWeight = FontWeight.ExtraBold,
+                                        color = Color.Black
+                                    )
+                                ) {
+                                    append("Genre: ")
+                                }
+                                withStyle(
+                                    style = SpanStyle(
+                                        fontSize = 6.sp,
+                                        fontWeight = FontWeight.Normal
+                                    )
+                                ) {
+                                    append(mov.genre)
+                                }
+                            }, modifier = Modifier.padding(2.dp)
                         )
-                        Text(buildAnnotatedString {
-                            withStyle(
-                                style = SpanStyle(
-                                    fontSize = 6.sp,
-                                    fontWeight = FontWeight.ExtraBold,
-                                    color = Color.Black
-                                )
-                            ) {
-                                append("Cast: ")
-                            }
-                            withStyle(
-                                style = SpanStyle(
-                                    fontSize = 6.sp,
-                                    fontWeight = FontWeight.Normal
-                                )
-                            ) {
-                                append(mov.actors)
-                            }
-                        }, modifier = Modifier.padding(2.dp)
+                        Text(
+                            buildAnnotatedString {
+                                withStyle(
+                                    style = SpanStyle(
+                                        fontSize = 6.sp,
+                                        fontWeight = FontWeight.ExtraBold,
+                                        color = Color.Black
+                                    )
+                                ) {
+                                    append("Cast: ")
+                                }
+                                withStyle(
+                                    style = SpanStyle(
+                                        fontSize = 6.sp,
+                                        fontWeight = FontWeight.Normal
+                                    )
+                                ) {
+                                    append(mov.actors)
+                                }
+                            }, modifier = Modifier.padding(2.dp)
                         )
-                        Text(buildAnnotatedString {
-                            withStyle(
-                                style = SpanStyle(
-                                    fontSize = 6.sp,
-                                    fontWeight = FontWeight.ExtraBold,
-                                    color = Color.Black
-                                )
-                            ) {
-                                append("Rating: ")
-                            }
-                            withStyle(
-                                style = SpanStyle(
-                                    fontSize = 6.sp,
-                                    fontWeight = FontWeight.Normal
-                                )
-                            ) {
-                                append(mov.rating)
-                            }
-                        }, modifier = Modifier.padding(2.dp)
+                        Text(
+                            buildAnnotatedString {
+                                withStyle(
+                                    style = SpanStyle(
+                                        fontSize = 6.sp,
+                                        fontWeight = FontWeight.ExtraBold,
+                                        color = Color.Black
+                                    )
+                                ) {
+                                    append("Rating: ")
+                                }
+                                withStyle(
+                                    style = SpanStyle(
+                                        fontSize = 6.sp,
+                                        fontWeight = FontWeight.Normal
+                                    )
+                                ) {
+                                    append(mov.rating)
+                                }
+                            }, modifier = Modifier.padding(2.dp)
                         )
                     }
                 }
@@ -289,7 +295,8 @@ fun DetailsScreen(navController: NavController,
                     border = BorderStroke(1.dp, Color.DarkGray),
                     shape = RectangleShape
                 ) {
-                    Text(text = "Movie Images",
+                    Text(
+                        text = "Movie Images",
                         fontWeight = FontWeight.Bold,
                         style = MaterialTheme.typography.headlineSmall,
                         color = Color.Black

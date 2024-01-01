@@ -10,8 +10,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.movieapp.screens.home.HomeScreen
 import com.example.movieapp.screens.details.DetailsScreen
+import com.example.movieapp.screens.home.HomeScreen
 
 @Composable
 fun MovieNavigation(paddingValues: PaddingValues) {

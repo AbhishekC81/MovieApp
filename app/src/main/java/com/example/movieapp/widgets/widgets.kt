@@ -7,14 +7,12 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.Card
@@ -25,13 +23,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -77,12 +73,14 @@ fun MovieRow(
                 shape = CircleShape,
                 shadowElevation = 4.dp
             ) {
-                Image(painter = rememberImagePainter(data = movie.images[0],
-                    builder = {
-                        crossfade(true)
-                        transformations(CircleCropTransformation())
-                    }),
-                    contentDescription = "Movie Poster" )
+                Image(
+                    painter = rememberImagePainter(data = movie.images[0],
+                        builder = {
+                            crossfade(true)
+                            transformations(CircleCropTransformation())
+                        }),
+                    contentDescription = "Movie Poster"
+                )
 
             }
 
@@ -105,36 +103,57 @@ fun MovieRow(
 
                 AnimatedVisibility(visible = isExpanded.value) {
                     Column {
-                        Text(buildAnnotatedString {
-                            withStyle(style = SpanStyle(color = Color.DarkGray,
-                                fontSize = 13.sp)) {
-                                append("Plot: ")
-                            }
-                            withStyle(style = SpanStyle(color = Color.DarkGray,
-                                fontSize = 13.sp,
-                                fontWeight = FontWeight.Light)
-                            ) {
-                                append(movie.plot)
-                            }
-                        },
-                            modifier = Modifier.padding(6.dp))
+                        Text(
+                            buildAnnotatedString {
+                                withStyle(
+                                    style = SpanStyle(
+                                        color = Color.DarkGray,
+                                        fontSize = 13.sp
+                                    )
+                                ) {
+                                    append("Plot: ")
+                                }
+                                withStyle(
+                                    style = SpanStyle(
+                                        color = Color.DarkGray,
+                                        fontSize = 13.sp,
+                                        fontWeight = FontWeight.Light
+                                    )
+                                ) {
+                                    append(movie.plot)
+                                }
+                            },
+                            modifier = Modifier.padding(6.dp)
+                        )
 
                         Divider(modifier = Modifier.padding(3.dp))
-                        Text(text = "Genre: ${movie.genre}", style = MaterialTheme.typography.labelSmall)
-                        Text(text = "Actors: ${movie.actors}", style = MaterialTheme.typography.labelSmall)
-                        Text(text = "Rating: ${movie.rating}", style = MaterialTheme.typography.labelSmall, fontWeight = FontWeight.Bold)
+                        Text(
+                            text = "Genre: ${movie.genre}",
+                            style = MaterialTheme.typography.labelSmall
+                        )
+                        Text(
+                            text = "Actors: ${movie.actors}",
+                            style = MaterialTheme.typography.labelSmall
+                        )
+                        Text(
+                            text = "Rating: ${movie.rating}",
+                            style = MaterialTheme.typography.labelSmall,
+                            fontWeight = FontWeight.Bold
+                        )
                     }
                 }
 
 
-                Icon(imageVector = if (isExpanded.value) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown,
+                Icon(
+                    imageVector = if (isExpanded.value) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown,
                     contentDescription = "Down Arrow",
                     modifier = Modifier
                         .size(20.dp)
                         .clickable {
                             isExpanded.value = !isExpanded.value
                         },
-                    tint = Color.DarkGray)
+                    tint = Color.DarkGray
+                )
             }
         }
 
