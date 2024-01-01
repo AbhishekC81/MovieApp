@@ -1,10 +1,15 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package com.example.movieapp.navigation
 
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.movieapp.screens.home.HomeScreen
 import com.example.movieapp.screens.details.DetailsScreen
 
@@ -22,9 +27,11 @@ fun MovieNavigation(paddingValues: PaddingValues) {
         }
 
         composable(
-            MovieScreens.DetailsScreen.name
+            MovieScreens.DetailsScreen.name+"/{movie}",
+            arguments = listOf(navArgument(name = "movie") {type = NavType.StringType})
         ) {
-            DetailsScreen(navController = navController)
+            backStackEntry ->
+            DetailsScreen(navController = navController, backStackEntry.arguments?.getString("movie"))
         }
     }
 }

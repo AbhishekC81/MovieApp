@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.movieapp.MovieRow
@@ -29,7 +30,8 @@ fun HomeScreen(paddingValues: PaddingValues, navController: NavController) {
             TopAppBar(
                 title = {
                     Text(
-                        text = "Movies"
+                        text = "Movies",
+                        fontWeight = FontWeight.Bold
                     )
                 },
                 modifier = Modifier.shadow(elevation = 5.dp),
@@ -69,7 +71,7 @@ fun MainContent(
             items(items = movieList) {
                 MovieRow(movie = it) { movie ->
                     //Log.d("Tag","MainContent: $movie")
-                    navController.navigate(route = MovieScreens.DetailsScreen.name)
+                    navController.navigate(route = MovieScreens.DetailsScreen.name+"/$movie")
                 }
             }
         })
