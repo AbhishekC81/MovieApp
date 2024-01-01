@@ -44,6 +44,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.movieapp.navigation.MovieNavigation
 import com.example.movieapp.ui.theme.MovieAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -51,7 +52,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MyApp {
-                MainContent(it)
+                MovieNavigation(it)
             }
         }
     }
@@ -60,58 +61,11 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MyApp(content: @Composable (PaddingValues) -> Unit) {
     MovieAppTheme {
-        Scaffold(
-            topBar = {
-                TopAppBar(
-                    title = {
-                        Text(
-                            text = "Movies"
-                        )
-                    },
-                    modifier = Modifier.shadow(elevation = 5.dp),
-                    colors = topAppBarColors(containerColor = Color.Magenta)
-                )
-            }
-        ) {
-            content(it)
-        }
+        content(PaddingValues())
     }
 }
 
-@Composable
-fun MainContent(
-    paddingValues: PaddingValues,
-    movieList: List<String> = listOf(
-        "Avatar",
-        "300",
-        "Batman",
-        "Harry Potter",
-        "Barbie",
-        "Lord Of The Rings",
-        "Fight Club",
-        "Se7en"
-    )
-) {
-    Column(
-        modifier = Modifier
-            .padding(
-                start=12.dp,
-                top= paddingValues.calculateTopPadding()+12.dp,
-                bottom=12.dp,
-                end=12.dp
-            )
-    ) {
-        LazyColumn(content = {
-            items(items = movieList) {
-                MovieRow(movie = it) { movie ->
-                    Log.d("Tag","MainContent: $movie")
-                }
-            }
-        })
 
-    }
-
-}
 
 
 @Composable
@@ -125,7 +79,7 @@ fun MovieRow(
             .fillMaxWidth()
             .height(130.dp)
             .clickable {
-                       onItemClick(movie)
+                onItemClick(movie)
             },
         shape = RoundedCornerShape(corner = CornerSize(16.dp)),
         elevation = CardDefaults.cardElevation(6.dp)
@@ -158,6 +112,6 @@ fun MovieRow(
 @Composable
 fun GreetingPreview() {
     MyApp {
-        MainContent(it)
+        MovieNavigation(it)
     }
 }
