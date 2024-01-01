@@ -20,9 +20,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.movieapp.MovieRow
+import com.example.movieapp.model.Movie
+import com.example.movieapp.model.getMovies
 import com.example.movieapp.navigation.MovieScreens
+import com.example.movieapp.widgets.MovieRow
 
+@ExperimentalMaterial3Api
 @Composable
 fun HomeScreen(paddingValues: PaddingValues, navController: NavController) {
     Scaffold(
@@ -47,17 +50,8 @@ fun HomeScreen(paddingValues: PaddingValues, navController: NavController) {
 fun MainContent(
     paddingValues: PaddingValues,
     navController: NavController,
-    movieList: List<String> = listOf(
-        "Avatar",
-        "300",
-        "Batman",
-        "Harry Potter",
-        "Barbie",
-        "Lord Of The Rings",
-        "Fight Club",
-        "Se7en"
-    )
-) {
+    movieList: List<Movie> = getMovies()
+    ) {
     Column(
         modifier = Modifier
             .padding(
